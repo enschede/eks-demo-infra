@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 1m
   ref:
-    branch: master
+    branch: sprint3
   url: https://github.com/enschede/eks-demo-app.git
 
 ---

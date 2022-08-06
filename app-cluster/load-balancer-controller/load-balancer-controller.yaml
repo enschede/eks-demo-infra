@@ -9,8 +9,6 @@ spec:
   ref:
     branch: main
   url: https://github.com/enschede/eks-demo-load-balancer-controller.git
-  secretRef:
-    name: github-credentials
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1

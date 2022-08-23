@@ -23,3 +23,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: eks-demo-app
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: aws

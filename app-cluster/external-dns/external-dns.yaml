@@ -17,10 +17,6 @@ metadata:
   name: external-dns
   namespace: flux-system
 spec:
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-gpg
   interval: 1m
   path: "./deployment"
   prune: true

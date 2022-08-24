@@ -29,4 +29,4 @@ spec:
         name: aws
   dependsOn:
     - name: load-balancer-controller
-    - name: bitnami-external-dns-controller
+    - name: external-dns

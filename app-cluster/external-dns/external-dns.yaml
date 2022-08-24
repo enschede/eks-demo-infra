@@ -9,6 +9,8 @@ spec:
   ref:
     branch: sprint4
   url: https://github.com/enschede/eks-demo-bitnami-external-dns.git
+  secretRef:
+    name: github-credentials
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1

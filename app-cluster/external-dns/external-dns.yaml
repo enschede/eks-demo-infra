@@ -1,0 +1,27 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: external-dns
+  namespace: flux-system
+spec:
+  interval: 1m
+  ref:
+    branch: main
+  url: https://github.com/enschede/eks-demo-bitnami-external-dns.git
+  secretRef:
+    name: github-credentials
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: external-dns
+  namespace: flux-system
+spec:
+  interval: 1m
+  path: "./deployment"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: external-dns

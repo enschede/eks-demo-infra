@@ -9,6 +9,8 @@ spec:
   ref:
     branch: main
   url: https://github.com/enschede/eks-demo-app.git
+  secretRef:
+    name: github-credentials
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
@@ -23,3 +25,10 @@ spec:
   sourceRef:
     kind: GitRepository
     name: eks-demo-app
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: aws
+  dependsOn:
+    - name: load-balancer-controller
+    - name: external-dns

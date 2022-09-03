@@ -25,6 +25,8 @@ spec:
   sourceRef:
     kind: GitRepository
     name: eks-demo-app
+  dependsOn:
+    - name: crossplane-infra-phase3
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1

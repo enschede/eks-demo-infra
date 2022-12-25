@@ -36,7 +36,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
-  path: "./crossplane"
+  path: "./db"
   prune: true
   sourceRef:
     kind: GitRepository

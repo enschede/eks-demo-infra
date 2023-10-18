@@ -1,0 +1,31 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: metrics-server
+  namespace: flux-system
+spec:
+  interval: 1m
+  ref:
+    branch: main
+  url: https://github.com/enschede/maas-metrics-server.git
+  secretRef:
+    name: github-credentials
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: metrics-server
+  namespace: flux-system
+spec:
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
+  interval: 1m
+  path: "./deployment"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: metrics-server

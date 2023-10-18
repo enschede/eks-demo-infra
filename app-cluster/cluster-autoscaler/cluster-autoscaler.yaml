@@ -1,0 +1,35 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: cluster-autoscaler
+  namespace: flux-system
+spec:
+  interval: 1m
+  ref:
+    branch: main
+  url: https://github.com/enschede/maas-cluster-autoscaler.git
+  secretRef:
+    name: github-credentials
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: cluster-autoscaler
+  namespace: flux-system
+spec:
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-gpg
+  interval: 1m
+  path: "./deployment"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: cluster-autoscaler
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: aws

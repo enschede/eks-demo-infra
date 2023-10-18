@@ -20,7 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
-  path: "./crossplane"
+  path: "./deployment/stage1"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -36,7 +36,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
-  path: "./db"
+  path: "./deployment/stage2"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -52,7 +52,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
-  path: "./deployment"
+  path: "./deployment/stage3"
   prune: true
   sourceRef:
     kind: GitRepository

@@ -53,6 +53,7 @@ iam:
             Action:
               - "autoscaling:SetDesiredCapacity"
               - "autoscaling:TerminateInstanceInAutoScalingGroup"
+              - "ec2:DescribeImages"
               - "ec2:DescribeInstanceTypes"
               - "eks:DescribeNodegroup"
             Resource: '*'

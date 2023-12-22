@@ -71,6 +71,7 @@ managedNodeGroups:
     iam:
       withAddonPolicies:
         cloudWatch: true
+        autoScaler: true
     tags:
       # needed for autoscaler
       k8s.io/cluster-autoscaler/demo: owned

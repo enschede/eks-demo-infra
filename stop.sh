@@ -6,6 +6,6 @@ sleep 1
 flux delete kustomization --context console@eks-demo.us-west-2.eksctl.io --silent eks-demo-app-db
 sleep 1
 flux delete kustomization --context console@eks-demo.us-west-2.eksctl.io --silent eks-demo-app-crossplane
-sleep 1
+sleep 60
 
 eksctl delete cluster eks-demo --wait

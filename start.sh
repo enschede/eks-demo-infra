@@ -15,3 +15,5 @@ kubectl create secret generic github-credentials --namespace flux-system \
 
 gpg --export-secret-keys --armor 6A3D2EDFCB37F13284F42BAA2BFA724C957A2A9D | \
   kubectl create secret generic sops-gpg --namespace=flux-system --from-file=sops.asc=/dev/stdin &
+
+wait < <(jobs -p)

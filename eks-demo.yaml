@@ -74,7 +74,7 @@ managedNodeGroups:
         autoScaler: true
     tags:
       # needed for autoscaler
-      k8s.io/cluster-autoscaler/demo: owned
+      k8s.io/cluster-autoscaler/eks-demo: owned
       k8s.io/cluster-autoscaler/enabled: "true"
 
 gitops:

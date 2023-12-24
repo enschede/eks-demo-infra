@@ -12,21 +12,21 @@ spec:
   secretRef:
     name: github-credentials
 
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
-kind: Kustomization
-metadata:
-  name: eks-demo-app-crossplane
-  namespace: flux-system
-spec:
-  interval: 1m
-  path: "./deployment/stage1"
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: eks-demo-app
-  dependsOn:
-    - name: crossplane-infra-phase3
+#---
+#apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+#kind: Kustomization
+#metadata:
+#  name: eks-demo-app-crossplane
+#  namespace: flux-system
+#spec:
+#  interval: 1m
+#  path: "./deployment/stage1"
+#  prune: true
+#  sourceRef:
+#    kind: GitRepository
+#    name: eks-demo-app
+#  dependsOn:
+#    - name: cross plane-infra-phase3
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
@@ -42,7 +42,7 @@ spec:
     kind: GitRepository
     name: eks-demo-app
   dependsOn:
-    - name: eks-demo-app-crossplane
+    - name: cross plane-infra-phase3
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1

@@ -30,7 +30,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
 metadata:
-  name: networktools-app
+  name: networktools-stage2
   namespace: flux-system
 spec:
   interval: 1m
@@ -41,3 +41,19 @@ spec:
     name: networktools
   dependsOn:
     - name: networktools-csi-driver
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: networktools-stage3
+  namespace: flux-system
+spec:
+  interval: 1m
+  path: "./deployment/stage3"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: networktools
+  dependsOn:
+    - name: networktools-stage2

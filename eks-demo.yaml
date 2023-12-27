@@ -4,17 +4,42 @@ metadata:
   name: eks-demo
   region: us-west-2
 
+vpc:
+  # Gebruik van fixed vpc omdat permanent EFS gebruikt wordt. Zonder fixed EFS blijft EFS niet in stand.
+  id: "vpc-0b7384f37844f8fcc"
+  subnets:
+    private:
+      us-west-2a:
+        id: "subnet-043c77679e9ad65f9"
+      us-west-2b:
+        id: "subnet-091f41b77c5141eb7"
+      us-west-2c:
+        id: "subnet-0abc79efc5a972b86"
+    public:
+      # LET OP: zet in de publieke subnetten de volgende opties aan:
+      # Auto-assign public IPv4 address
+      # Auto-assign IPv6 address
+      us-west-2a:
+        id: "subnet-0fc025155115d3ca9"
+      us-west-2b:
+        id: "subnet-0f1f930cfb2b3909d"
+      us-west-2c:
+        id: "subnet-08991736d58ec2e49"
+
+# Gebruik van IPv6 vereist extra addons, deze vertragen create en delete van eks cluster
 #kubernetesNetworkConfig:
 #  ipFamily: IPv6
 
-## Add-ons are required for IPv6. Why? Unknown. Maybe irrelevant in the future.
-#addons:
-#  - name: vpc-cni
-#    version: latest
-#  - name: coredns
-#    version: latest
-#  - name: kube-proxy
-#    version: latest
+addons:                         # Let op; iedere addon kost laadtijd
+#  - name: aws-ebs-csi-driver    # Elastic block driver; dit is een virtuele harde schrijf
+#    wellKnownPolicies:
+#      ebsCSIController : true
+  - name: aws-efs-csi-driver    # Elastic file system; dit is een NFS client
+    wellKnownPolicies:
+      efsCSIController : true
+#  - name: vpc-cni     # Vereist voor IPv6
+#  - name: coredns     # Vereist voor ipv6
+#  - name: kube-proxy  # Vereist voor IPv6
 
 iam:
   # Er wordt een OIDC aangemaakt. AWS is de resource, het cluster is de resource owner.
@@ -32,6 +57,16 @@ iam:
         namespace: bitnami-external-dns
       wellKnownPolicies:
         externalDNS: true
+    #    - metadata:
+    #        name: ebs-csi-controller-sa
+    #        namespace: kube-system
+    #      wellKnownPolicies:
+    #        ebsCSIController: true
+    #    - metadata:
+    #        name: efs-csi-controller-sa
+    #        namespace: kube-system
+    #      wellKnownPolicies:
+    #        efsCSIController : true
     - metadata:
         name: cluster-autoscaler
         namespace: kube-system

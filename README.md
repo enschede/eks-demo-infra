@@ -1,16 +1,20 @@
 # Root project 
 
-## Werking
+Project voor testen en runnen van EKS demo omgeving. Gebruikte technieken:
 
-- Maakt service accounts aan
-- Start FluxCD op (in eks-demo-project)
+## Gebruiken
 
-## Start en stop
+Voorbereiding: toevoegen van demo.sh als alias in shell
 
-- woc start
-- woc stop
+- demo start
+- demo stop
+- demo restart
 
-## k9s keywords
+## EKSCTL
+
+Project gebruikt EKSCTL.io. Zie config in start.sh
+
+## Nuttige k9s keywords
 
 - :nodes
 - :pods
@@ -19,6 +23,8 @@
 - :secret
 - :configmap
 - :crds
+- :pv
+- :pvc
 
 - :kustomization
 - :dbinstances.rds.aws.crossplane.io

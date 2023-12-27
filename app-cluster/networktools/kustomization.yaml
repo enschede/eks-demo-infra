@@ -1,4 +1,43 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: networktools
+  namespace: flux-system
+spec:
+  interval: 1m
+  ref:
+    branch: main
+  url: https://github.com/enschede/eks-demo-networktools.git
+  secretRef:
+    name: github-credentials
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
-resources:
-  - networktools.yaml
+metadata:
+  name: networktools-csi-driver
+  namespace: flux-system
+spec:
+  interval: 1m
+  path: "./deployment/stage1"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: networktools
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: networktools-app
+  namespace: flux-system
+spec:
+  interval: 1m
+  path: "./deployment/stage2"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: networktools
+  dependsOn:
+    - name: networktools-csi-driver

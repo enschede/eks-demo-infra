@@ -39,8 +39,8 @@ spec:
   sourceRef:
     kind: GitRepository
     name: networktools
-  dependsOn:
-    - name: networktools-csi-driver
+#  dependsOn:
+#    - name: networktools-csi-driver
 
 #---
 #apiVersion: kustomize.toolkit.fluxcd.io/v1beta1

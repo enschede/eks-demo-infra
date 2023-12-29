@@ -12,19 +12,19 @@ spec:
   secretRef:
     name: github-credentials
 
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
-kind: Kustomization
-metadata:
-  name: networktools-csi-driver
-  namespace: flux-system
-spec:
-  interval: 1m
-  path: "./deployment/stage1"
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: networktools
+#---
+#apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+#kind: Kustomization
+#metadata:
+#  name: networktools-csi-driver
+#  namespace: flux-system
+#spec:
+#  interval: 1m
+#  path: "./deployment/stage1"
+#  prune: true
+#  sourceRef:
+#    kind: GitRepository
+#    name: networktools
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1

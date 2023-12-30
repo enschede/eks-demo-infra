@@ -58,18 +58,18 @@ spec:
   dependsOn:
     - name: networktools-stage2
 
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
-kind: Kustomization
-metadata:
-  name: networktools-stage4
-  namespace: flux-system
-spec:
-  interval: 1m
-  path: "./deployment/stage4"
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: networktools
-  dependsOn:
-    - name: networktools-stage3
+#---
+#apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+#kind: Kustomization
+#metadata:
+#  name: networktools-stage4
+#  namespace: flux-system
+#spec:
+#  interval: 1m
+#  path: "./deployment/stage4"
+#  prune: true
+#  sourceRef:
+#    kind: GitRepository
+#    name: networktools
+#  dependsOn:
+#    - name: networktools-stage3

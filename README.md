@@ -42,4 +42,5 @@ Service accounts aangemaakt op AWS en gebruikt door K8S services
 
 (zie uitgebreiden beschrijving in het package)
 
+- dashboard. Kubernetes dashboard. Showcase dat een app geen eigen repo nodig heeft. Niet meer nodig, want k9s. 
 - networktools-efs. Aanroepen van stateful EFS/NFS partitie op AWS. Werkt matig.

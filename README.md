@@ -37,3 +37,9 @@ Service accounts aangemaakt op AWS en gebruikt door K8S services
 - aws-load-balancer-controller
 - bitnami-external-dns-controller
 - cluster-autoscaler
+
+## Packages
+
+(zie uitgebreiden beschrijving in het package)
+
+- networktools-efs. Aanroepen van stateful EFS/NFS partitie op AWS. Werkt matig.

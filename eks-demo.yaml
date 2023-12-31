@@ -32,12 +32,9 @@ vpc:
 #  ipFamily: IPv6
 
 addons:                         # Let op; iedere addon kost laadtijd
-#  - name: aws-ebs-csi-driver    # Elastic block driver; dit is een virtuele harde schrijf
-#    wellKnownPolicies:
-#      ebsCSIController : true
-  - name: aws-efs-csi-driver    # Elastic file system; dit is een NFS client
+  - name: aws-ebs-csi-driver    # Elastic Block Storage; een virtuele schijf op AWS
     wellKnownPolicies:
-      efsCSIController : true
+      ebsCSIController : true
 #  - name: vpc-cni     # Vereist voor IPv6
 #  - name: coredns     # Vereist voor ipv6
 #  - name: kube-proxy  # Vereist voor IPv6
@@ -58,16 +55,6 @@ iam:
         namespace: bitnami-external-dns
       wellKnownPolicies:
         externalDNS: true
-    #    - metadata:
-    #        name: ebs-csi-controller-sa
-    #        namespace: kube-system
-    #      wellKnownPolicies:
-    #        ebsCSIController: true
-    #    - metadata:
-    #        name: efs-csi-controller-sa
-    #        namespace: kube-system
-    #      wellKnownPolicies:
-    #        efsCSIController : true
     - metadata:
         name: cluster-autoscaler
         namespace: kube-system
@@ -100,8 +87,8 @@ iam:
 managedNodeGroups:
   - name: prod
     instanceType: t3.medium
-    desiredCapacity: 2
-    minSize: 2
+    desiredCapacity: 3
+    minSize: 3
     maxSize: 6
     spot: true
     iam:

@@ -5,8 +5,8 @@ metadata:
   version: "1.28"
   region: us-west-2
 
+# Noodzakelijk voor o.a. IPv6, zie README/IPv6
 vpc:
-  # Gebruik van fixed vpc omdat permanent EFS gebruikt wordt. Zonder fixed EFS blijft EFS niet in stand.
   id: "vpc-0b7384f37844f8fcc"
   subnets:
     private:
@@ -17,9 +17,6 @@ vpc:
       us-west-2c:
         id: "subnet-0abc79efc5a972b86"
     public:
-      # LET OP: zet in de publieke subnetten de volgende opties aan:
-      # Auto-assign public IPv4 address
-      # Auto-assign IPv6 address
       us-west-2a:
         id: "subnet-0fc025155115d3ca9"
       us-west-2b:
@@ -27,17 +24,10 @@ vpc:
       us-west-2c:
         id: "subnet-08991736d58ec2e49"
 
-# Gebruik van IPv6 vereist extra addons, deze vertragen create en delete van eks cluster
-#kubernetesNetworkConfig:
-#  ipFamily: IPv6
-
-addons:                         # Let op; iedere addon kost laadtijd
-  - name: aws-ebs-csi-driver    # Elastic Block Storage; een virtuele schijf op AWS
+addons:
+  - name: aws-ebs-csi-driver
     wellKnownPolicies:
       ebsCSIController : true
-#  - name: vpc-cni     # Vereist voor IPv6
-#  - name: coredns     # Vereist voor ipv6
-#  - name: kube-proxy  # Vereist voor IPv6
 
 iam:
   # Er wordt een OIDC aangemaakt. AWS is de resource, het cluster is de resource owner.

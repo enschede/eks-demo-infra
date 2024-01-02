@@ -81,6 +81,18 @@ Ook hier zijn IPv6 enabled subnetten noodzakelijk. In de eksctl config zijn de v
 
 Let op, iedere add-on kost extra tijd bij initialisatie en decomissioning van het cluster
 
+## VPC overwegingen
+
+Een aantal AWS diensten zitten in een AWS zone (bijv. us-west-2a). Dit geldt bijv. voor EBS. Om EBS aan te kunnen spreken moet de pod die de service aanroept in dezelfde zone zitten.
+Om dit te laten werken zijn een aantal zaken noodzakelijk.
+
+- Er moet een node in de betreffende zone draaien.
+  - Zorg dat er altijd minimaal evenveel nodes zijn als zones. Dus bij 3 zones minimaal 3 nodes.
+  - Beperk evt. het aantal zones (bijv. zone c) de huur van veel ijzer te voorkomen.
+- Zorg de affinity in de deployment ingesteld op de juiste node.
+
+
+
 ## Nuttige k9s keywords
 
 - :nodes

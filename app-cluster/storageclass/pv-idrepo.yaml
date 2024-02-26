@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  labels:
+    topology.kubernetes.io/region: us-west-2
+    topology.kubernetes.io/zone: us-west-2a
+  name: pv-idrepo
+spec:
+  accessModes:
+    - ReadWriteOnce
+  awsElasticBlockStore:
+    fsType: ext4
+    volumeID: vol-093e93f342b8e8c6e
+  capacity:
+    storage: 10Gi
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: fast
+  volumeMode: Filesystem

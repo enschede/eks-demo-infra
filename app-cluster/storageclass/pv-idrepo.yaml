@@ -16,3 +16,6 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: fast
   volumeMode: Filesystem
+  claimRef:
+    name: data-ds-idrepo-0
+    namespace: fr-demo

@@ -13,6 +13,6 @@ spec:
     volumeID: vol-093e93f342b8e8c6e
   capacity:
     storage: 10Gi
-  persistentVolumeReclaimPolicy: Delete
+  persistentVolumeReclaimPolicy: Retain
   storageClassName: fast
   volumeMode: Filesystem

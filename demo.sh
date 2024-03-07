@@ -26,6 +26,10 @@ function startCluster() {
   wait < <(jobs -p)
 }
 
+function startForgeRock() {
+  $EKS_DEMO_FORGEROCK/bin/fr-start.sh
+}
+
 function stopCluster() {
   # Context is relevant if more than one cluster is running, like a minikube cluster
   flux suspend kustomization --context console@eks-demo.us-west-2.eksctl.io flux-system
@@ -41,19 +45,59 @@ function stopCluster() {
   eksctl delete cluster eks-demo --wait
 }
 
+function stopForgeRock() {
+  $EKS_DEMO_FORGEROCK/bin/fr-stop.sh
+}
+
 case "$1" in
     start)
-      startCluster
+      case "$2" in
+        all)
+          brew update && brew upgrade && clear && startCluster && sleep 15 && startForgeRock
+        ;;
+        eks)
+          startCluster
+        ;;
+        '')
+          startCluster
+        ;;
+        fr)
+          startForgeRock
+        ;;
+      esac
     ;;
     stop)
-      stopCluster
+      case "$2" in
+        "fr")
+          stopForgeRock
+        ;;
+        "eks")
+          stopCluster
+        ;;
+        '')
+          stopForgeRock
+          stopCluster
+        ;;
+        all)
+          stopForgeRock
+          stopCluster
+        ;;
+      esac
     ;;
     restart)
-      startCluster && stopCluster
+      stopCluster && clear && brew update && brew upgrade && startCluster
     ;;
     *)
       echo $"Commands:"
       echo $" demo start        Start EKS cluster"
+      echo $" demo start eks    Start EKS cluster"
+      echo $" demo start fr     Start ForgeRock on cluster"
+      echo $" demo start all    Start cluster and ForgeRock (incl brew update)"
+      echo $" "
       echo $" demo stop         Stop EKS cluster"
+      echo $" demo stop eks     Stop EKS cluster"
+      echo $" demo stop fr      Stop Forgerock"
+      echo $" demo stop all     Stop Forgerock and cluster"
+      echo $" "
       echo $" demo restart      Restart EKS cluster"
 esac

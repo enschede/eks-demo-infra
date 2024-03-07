@@ -22,15 +22,15 @@ vpc:
         id: "subnet-043c77679e9ad65f9"
       us-west-2b:
         id: "subnet-091f41b77c5141eb7"
-#      us-west-2c:
-#        id: "subnet-0abc79efc5a972b86"
+      us-west-2c:
+        id: "subnet-0abc79efc5a972b86"
     public:
       us-west-2a:
         id: "subnet-0fc025155115d3ca9"
       us-west-2b:
         id: "subnet-0f1f930cfb2b3909d"
-#      us-west-2c:
-#        id: "subnet-08991736d58ec2e49"
+      us-west-2c:
+        id: "subnet-08991736d58ec2e49"
 
 addons:
   - name: aws-ebs-csi-driver
@@ -38,11 +38,8 @@ addons:
       ebsCSIController : true
 
 iam:
-  # Er wordt een OIDC aangemaakt. AWS is de resource, het cluster is de resource owner.
   withOIDC: true
   serviceAccounts:
-    # Alternatieve methoden om een policy te beschrijven,
-    # zie https://medium.com/@marcenschede/eks-complete-with-eksctl-sprint-2-6ec2ab518e76
     - metadata:
         name: aws-load-balancer-controller
         namespace: kube-system
@@ -78,18 +75,18 @@ iam:
               - "ec2:DescribeInstanceTypes"
               - "eks:DescribeNodegroup"
             Resource: '*'
-      # refering to a policy defined in IAM
-#      attachPolicyARNs:
-#        - "arn:aws:iam::228991124303:policy/EKSClusterAutoscalerPolicy"
+      # Zo had het ook gekund
+      # attachPolicyARNs:
+      #  - "arn:aws:iam::228991124303:policy/EKSClusterAutoscalerPolicy"
 
 managedNodeGroups:
   - name: prod
-    instanceType: t3.medium
-    # Voor het juiste aantal zones, zie README/VPC overwegingen
-    desiredCapacity: 2
+    instanceType: t3.large
+    desiredCapacity: 4    # Voor het juiste aantal zones, zie README/VPC overwegingen
     minSize: 2
-    maxSize: 6
+    maxSize: 10
     spot: true
+    labels: {frontend: "true"}
     iam:
       withAddonPolicies:
         cloudWatch: true

@@ -2,7 +2,12 @@
 
 Project voor testen en runnen van EKS demo omgeving. Gebruikte technieken:
 
-## Gebruiken
+Gerelateerde documentatie:
+
+- [k9s](documentation/K9S.md)
+
+
+## Gebruik
 
 Voorbereiding: toevoegen van demo.sh als alias in shell
 
@@ -14,7 +19,11 @@ Voorbereiding: toevoegen van demo.sh als alias in shell
 
 Project gebruikt EKSCTL.io. Zie config in start.sh
 
-## service accounts
+Trivia:
+- Heel veel configuratie voorbeelden op https://github.com/eksctl-io/eksctl/tree/main/examples
+- Formeel configuratie schema op https://eksctl.io/usage/schema/
+
+### Service accounts
 
 Service accounts aangemaakt op AWS en gebruikt door K8S services
 
@@ -22,21 +31,21 @@ Service accounts aangemaakt op AWS en gebruikt door K8S services
 - bitnami-external-dns-controller
 - cluster-autoscaler
 
-## Packages
+### Add-ons
 
-(zie uitgebreiden beschrijving in het package)
+- EBS add-on maakt gebruik van een Elastic Block device (harde schijf) mogelijk
+- EFS add-on maakt gebruik van een NFS device mogelijk
 
-- dashboard. Kubernetes dashboard. Showcase dat een app geen eigen repo nodig heeft. Niet meer nodig, want k9s. 
-- networktools-efs. Aanroepen van stateful EFS/NFS partitie op AWS. Werkt matig.
+Add-ons kosten (veel) extra tijd nodig bij opstarten
 
-## IPv6 overwegingen
+### IPv6
 
 IPv6 kan op 2 plekken onafhankelijke van elkaar gebruikt worden
 
 - Extern, vanaf het Internet naar de LB's
 - Intern, vanaf de LB's naar binnen
 
-### IPv6 extern
+#### IPv6 extern
 
 Er is een IPv6-enabled VPC met dito subnetten noodzakelijk. In de subnetten zijn de volgende settings noodzakelijk:
 
@@ -67,7 +76,7 @@ De LB's moeten geactiveerd worden voor IPv6 in de ingress descriptor:
             alb.ingress.kubernetes.io/ip-address-type: dualstack
             alb.ingress.kubernetes.io/subnets: subnet-0fc025155115d3ca9, subnet-0f1f930cfb2b3909d, subnet-08991736d58ec2e49
 
-### IPv6 intern
+#### IPv6 intern
 
 Ook hier zijn IPv6 enabled subnetten noodzakelijk. In de eksctl config zijn de volgende settings nodig
 
@@ -91,20 +100,3 @@ Om dit te laten werken zijn een aantal zaken noodzakelijk.
   - Beperk evt. het aantal zones (bijv. zone c) de huur van veel ijzer te voorkomen.
 - Zorg de affinity in de deployment ingesteld op de juiste node.
 
-
-
-## Nuttige k9s keywords
-
-- :nodes
-- :pods
-- :context (ctx)
-- :namespace (ns)
-- :secret
-- :configmap
-- :crds
-- :pv
-- :pvc
-
-- :kustomization
-- :dbinstances.rds.aws.crossplane.io
-- :quit

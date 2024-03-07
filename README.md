@@ -10,9 +10,14 @@ Gerelateerde documentatie:
 ## Gebruik
 
 Voorbereiding: toevoegen van demo.sh als alias in shell
+Voorbereiding: toevoegen EKS_DEMO_FORGEROCK env var die wijst naar FR infra repo
 
-- demo start
-- demo stop
+- demo start _alias demo start eks_
+- demo start fr
+- demo start all
+- demo stop _alias demo stop eks_ 
+- demo stop fr 
+- demo stop all 
 - demo restart
 
 ## EKSCTL

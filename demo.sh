@@ -27,7 +27,9 @@ function startCluster() {
 }
 
 function startForgeRock() {
-  $EKS_DEMO_FORGEROCK/bin/fr-start.sh
+  pushd $EKS_DEMO_FORGEROCK/bin || exit
+  ./fr-start.sh
+  popd || exit
 }
 
 function stopCluster() {
@@ -46,7 +48,9 @@ function stopCluster() {
 }
 
 function stopForgeRock() {
-  $EKS_DEMO_FORGEROCK/bin/fr-stop.sh
+  pushd $EKS_DEMO_FORGEROCK/bin || exit
+  ./fr-stop.sh
+  popd || exit
 }
 
 case "$1" in
@@ -85,7 +89,23 @@ case "$1" in
       esac
     ;;
     restart)
-      stopCluster && clear && brew update && brew upgrade && startCluster
+      case "$2" in
+        "all")
+          stopForgeRock && stopCluster && clear && brew update && brew upgrade && startCluster && sleep 15 && stopForgeRock
+        ;;
+        "")
+          stopCluster && clear && brew update && brew upgrade && startCluster
+        ;;
+        "eks")
+          stopCluster && clear && brew update && brew upgrade && startCluster
+        ;;
+        "fr")
+          stopForgeRock && sleep 5 && startForgeRock
+        ;;
+        *)
+          echo Huh?
+        ;;
+      esac
     ;;
     *)
       echo $"Commands:"
@@ -100,4 +120,7 @@ case "$1" in
       echo $" demo stop all     Stop Forgerock and cluster"
       echo $" "
       echo $" demo restart      Restart EKS cluster"
+      echo $" demo restart eks  Restart EKS cluster"
+      echo $" demo restart fr   Restart ForgeRock"
+      echo $" demo restart all  Restart EKS cluster and ForgeRock"
 esac

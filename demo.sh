@@ -53,11 +53,15 @@ function stopForgeRock() {
   popd || exit
 }
 
+function brew_update() {
+    brew update && brew upgrade
+}
+
 case "$1" in
     start)
       case "$2" in
         all)
-          brew update && brew upgrade && clear && startCluster && sleep 15 && startForgeRock
+          brew_update && clear && startCluster && sleep 15 && startForgeRock
         ;;
         eks)
           startCluster
@@ -91,13 +95,13 @@ case "$1" in
     restart)
       case "$2" in
         "all")
-          stopForgeRock && stopCluster && clear && brew update && brew upgrade && startCluster && sleep 15 && stopForgeRock
+          stopForgeRock && stopCluster && clear && brew_update && startCluster && sleep 15 && startForgeRock
         ;;
         "")
-          stopCluster && clear && brew update && brew upgrade && startCluster
+          stopCluster && clear && brew_update && startCluster
         ;;
         "eks")
-          stopCluster && clear && brew update && brew upgrade && startCluster
+          stopCluster && clear && brew_update && startCluster
         ;;
         "fr")
           stopForgeRock && sleep 5 && startForgeRock

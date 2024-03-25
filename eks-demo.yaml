@@ -82,7 +82,7 @@ iam:
 managedNodeGroups:
   - name: prod
     instanceType: t3.large
-    desiredCapacity: 4    # Voor het juiste aantal zones, zie README/VPC overwegingen
+    desiredCapacity: 3    # Voor het juiste aantal zones, zie README/VPC overwegingen
     minSize: 2
     maxSize: 10
     spot: true
